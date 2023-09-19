@@ -1,6 +1,8 @@
 import sqlite3
 import time
 
+database = 'database.db'
+
 def data_hora() -> str:
     '''
     Retorna a data e a hora no formato YYYY-MM-DD HH:MM:SS
@@ -39,7 +41,8 @@ def criar_tabelas(database) -> None:
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS Produto (
                     barCode INTEGER PRIMARY KEY,
-                    name TEXT UNIQUE
+                    name TEXT UNIQUE,
+                    price REAL
                 )''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS Estoque (
@@ -49,7 +52,8 @@ def criar_tabelas(database) -> None:
                 )''')    
     
     cursor.execute('''CREATE TABLE IF NOT EXISTS Log (
-                    operation TEXT PRIMARY KEY,
+                    id INTEGER PRIMARY KEY,
+                    operation TEXT,
                     barCode_produto INTEGER,
                     quantity INTEGER,
                     dateTime TEXT,
@@ -66,12 +70,12 @@ def criar_index() -> None:
 
 # TODO: fazer testes para verificar os tipos dos argumentos, 
 # ex.: verificar se barcode é int.
-def insert_produto(barcode: int, name: str, quantity=None) -> None:
+def cadastrar_produto(barcode: int, name: str, price:float, quantity=None) -> None:
     '''
     Insere um produto na database.
     '''
-    sql1 = '''  INSERT INTO Produto(barCode, name)
-                VALUES(?,?)'''
+    sql1 = '''  INSERT INTO Produto(barCode, name, price)
+                VALUES(?,?,?)'''
     sql2 = '''  INSERT INTO Estoque(barCode_produto, quantity)
                 VALUES(?,?)'''
     sql3 = '''  INSERT INTO Log(operation, barCode_produto, quantity, dateTime)
@@ -81,7 +85,7 @@ def insert_produto(barcode: int, name: str, quantity=None) -> None:
 
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
-    cursor.execute(sql1, (barcode, name))
+    cursor.execute(sql1, (barcode, name, price))
 
     if quantity != None:
         cursor.execute(sql2, (barcode, quantity))
@@ -93,9 +97,19 @@ def insert_produto(barcode: int, name: str, quantity=None) -> None:
     return
 
 # TODO
-def delete_produto():
+def excluir_produto():
+    '''
+    Deleta um produto da database.
+    '''
     pass
 
 # TODO
-def vender_produto():
+def mudar_valor_produto():
+    '''
+    Muda o preço de um produto da database.
+    '''
+    pass
+
+# TODO
+def adicionar_estoque():
     pass
