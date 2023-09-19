@@ -1,6 +1,10 @@
 # padaria-cli
 
-Script simples que implementa um CLI para uma padaria, ainda incompleto.
+Script simples que implementa um CLI para uma padaria, utilizando o SQLite, ainda incompleto.
+
+Diagrama da database:
+
+<img src="/Db padaria diagram.png">
 
 # Requisitos
   * Python 3+
