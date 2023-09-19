@@ -1,6 +1,6 @@
 # padaria-cli
 
-Script simples que implementa simula o backend de uma padaria, ainda incompleto.
+Script simples que implementa um CLI para uma padaria, ainda incompleto.
 
 # Requisitos
   * Python 3+
